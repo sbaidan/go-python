@@ -83,16 +83,17 @@ if table == table_secret:
     print("Il t'a fallu ", current_time, " secondes" )
     print("Tu as réussi en ", nb_essai)
 
-    records = str(nb_essai), ",", str(current_time)
+    records = str(nb_essai) + "," + str(current_time)
 
     z = open("records.txt", "r")
     read_records = z.read()
-    liste_read_records = read_records.split(",")
+    liste_read_records = read_records.replace("\n", "").split(",")
+    print(liste_read_records)
+
+    ## until here everything's working
     liste_read_records = list(map(int,liste_read_records))
-
-
     if liste_read_records[0] > nb_essai:
-         w = open("records.txt", "w")
-         w.write(str(records))
-
-         print("Meilleur score à ce jour: " , read_records)
+        new_score = open("records.txt", "w")
+        new_score.write(records)
+        print("Meilleur score à ce jour: " , read_records)
+        new_score.close() ## Apparently when you call the method open you have to close it at the end of the writing
